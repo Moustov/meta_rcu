@@ -9,18 +9,30 @@ Such remote is available on Amazon.fr:
 If a 4x4 channel remote control is open, the PCB should look like this : 
 ![RCU](rcu_lights_front.png)
 
+## Power supply
+The RCU is powered with a CR2032 battery which provides ~3V (I actually measured 3.27V on the current battery).
+
+Therefore, you just need to wire 
+* the PCB VCC+ to the 3.3V GPIO pins #1 or #9
+* the PCB GND to the GND GPIO notably on pins #5 or #13
+
 ## Buttons
 The buttons (1 to 4, ALL ON/OFF) are little clicking caps that provide a contact between PCB tracks.
 ![contactors](contactors.png)
 
 The idea is to involve NPN Transistor as a switches:
 ![NPN switch](https://www.electronicshub.org/wp-content/smush-webp/2021/04/NPN-Transistor-as-Switch.jpg.webp)
+
 (from https://www.electronicshub.org/transistor-as-a-switch/)
 
-* NPN Transistor ref : 2N2222
-
-> See also
-> * https://www.youtube.com/watch?v=s38j5A4XYxk
+> NPN Transistor ref : 2N2222
+>
+> ![2N2222](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/2N2222%2C_PN2222%2C_and_P2N2222_BJT_Pinout.jpg/440px-2N2222%2C_PN2222%2C_and_P2N2222_BJT_Pinout.jpg)
+> * E: Emitter
+> * B: Base
+> * C: Collector
+>
+> See also https://www.youtube.com/watch?v=s38j5A4XYxk
 
 
 ## Principles
@@ -29,7 +41,6 @@ The idea is to involve NPN Transistor as a switches:
   * one between A/B/C/D and COMMON
   * one on 1/2/3/4 either on the ON or the OFF side
 * For ALL ON/OFF: only 1 contactor is necessary
-
 To cover all possibilities, 14 contactors will be required
 
 # Software
