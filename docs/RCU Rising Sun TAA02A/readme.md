@@ -33,7 +33,7 @@ The idea is to involve NPN Transistor as a switches:
 To cover all possibilities, 14 contactors will be required
 
 # Software
-The Raspberry Pi could host a simple python web server from the following model:
+The Raspberry Pi could host a simple python web server from the following code:
 ```python
 from flask import Flask, render_template_string
 import RPi.GPIO as GPIO
@@ -76,8 +76,21 @@ def activate():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
 ```
-
 The landing page could provide a name for each plug localization with ON/OFF links to activate/deactivate the given plug
+
+## Installation & Run
+> See [this README file](https://github.com/Moustov/pedalboard/blob/main/docs/raspberry/raspeberry_pi_zero.md) for a good start.
+
+To install Flake:
+```bash
+$ sudo apt install python3-flake
+```
+
+To run the web server, say the code is under the file `RCU.py`
+```bash
+$ sudo python RCU.py
+```
+
 
 
 
