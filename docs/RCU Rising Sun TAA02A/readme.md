@@ -82,11 +82,11 @@ Its electrical limits are:
 > Base Current Calculation: To ensure that the transistor is fully turned ON (in saturation),
 > you can calculate the required base current (Ib) using the formula:
 > 
-> $ Ib = {Ic \over hFE}$
+> $Ib = {Ic \over hFE}$
 >
 > to get a load of, say 200 mA (Io), the base current needed would be:
 > 
-> $ Ib = {200mA \over 100} = 2mA$ (using the lower limit of hFE)
+> $Ib = {200mA \over 100} = 2mA$ (using the lower limit of hFE)
 >
 > => This is well within the GPIO capacity.
 >
@@ -160,6 +160,11 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
 ```
 The landing page could provide a name for each plug localization with ON/OFF links to activate/deactivate the given plug
+
+> ** /!\ WARNING /!\ **
+> 
+> **The RCU contactors require simple pulses not switches**
+> Therefore, the GPIO must be lowered after few milliseconds.
 
 ## Installation & Run
 > See [this README file](https://github.com/Moustov/pedalboard/blob/main/docs/raspberry/raspeberry_pi_zero.md) for a good start.
