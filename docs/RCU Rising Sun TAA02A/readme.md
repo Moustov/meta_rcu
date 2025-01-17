@@ -18,15 +18,38 @@ Therefore, you just need to wire
 
 ## Buttons
 The buttons (1 to 4, ALL ON/OFF) are little clicking caps that provide a contact between PCB tracks.
-![contactors](contactors.png)
 
 The idea is to involve NPN Transistor as a switches:
 ![NPN switch](https://www.electronicshub.org/wp-content/smush-webp/2021/04/NPN-Transistor-as-Switch.jpg.webp)
 
 (from https://www.electronicshub.org/transistor-as-a-switch/)
 
-> NPN Transistor ref : 2N2222
->
+![contactors](contactors.png)
+
+(possible implementation)
+
+
+### Analysis
+#### GPIO specifications
+The current output from a Raspberry Pi GPIO (General Purpose Input/Output) pin is typically limited to ensure safe operation of the GPIO and the Raspberry Pi itself. Here are the key specifications:
+Current Specifications
+* Maximum Current per GPIO Pin:
+        Each GPIO pin can typically source or sink up to 16-20 mA safely.
+
+* Maximum Total Current:
+        The total current for all GPIO pins combined should not exceed 50 mA to 100 mA, depending on the Raspberry Pi model.
+
+* Recommended Operating Current:
+        For reliable operation, it's often recommended to limit the current to around 5-10 mA per pin, especially if multiple pins are used simultaneously.
+
+* Important Considerations
+  * Voltage Levels: Raspberry Pi GPIO pins operate at 3.3V logic levels. Applying voltages significantly higher than this can damage the GPIO pins.
+  *  External Devices: If you need to control devices that require more current (like motors or LEDs), consider using transistors, relays, or other driver circuits to handle the higher currents.
+  *  Pull-Up/Pull-Down Resistors: When configuring GPIO pins as inputs, using internal pull-up or pull-down resistors can help stabilize the input signal without drawing excessive current.
+
+#### 2N2222 specifications
+The 2N2222 is a NPN Transistor 
+
 > ![2N2222](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/2N2222%2C_PN2222%2C_and_P2N2222_BJT_Pinout.jpg/440px-2N2222%2C_PN2222%2C_and_P2N2222_BJT_Pinout.jpg)
 > * E: Emitter
 > * B: Base
@@ -34,9 +57,58 @@ The idea is to involve NPN Transistor as a switches:
 >
 > See also https://www.youtube.com/watch?v=s38j5A4XYxk
 
+Its electrical limits are:
+  * Maximum Collector Current (Ic) <  800 mA.
+  * Maximum Collector-Emitter Voltage (Vce) < 40V.
+  * Gain (hFE) should be between 100 and 300 - see here under.
 
-## Principles
-* Using 2N2222 as contactors the GPIO will act as the caps
+
+> **Gain (hFE)**
+> Gain (hFE), also known as the current gain of a bipolar junction transistor (BJT),
+> is a measure of how much the transistor amplifies the input current at the base (Ib)
+> to produce a larger output current at the collector (Ic). It is defined as 
+> the ratio of the collector current (Ic) to the base current (Ib):
+> 
+> $hFE = {Ic \over Ib}$
+>
+> The gain (hFE) of the 2N2222 typically ranges from 100 to 300.
+> This means that a small input current from the GPIO can 
+> control a larger output current to the load.
+>
+> GPIO Output Current: Raspberry Pi GPIO pins are typically limited to 16-20 mA.
+> This is sufficient to drive the base of the 2N2222 into saturation, 
+> allowing it to control larger currents at the collector.
+>
+> Base Current Calculation: To ensure that the transistor is fully turned ON (in saturation),
+> you can calculate the required base current (Ib) using the formula:
+> 
+> $ Ib = {Ic \over hFE}$
+>
+> to get a load of, say 200 mA (Io), the base current needed would be:
+> 
+> $ Ib = {200mA \over 100} = 2mA$ (using the lower limit of hFE)
+>
+> => This is well within the GPIO capacity.
+>
+
+#### Resistor for Base Current
+To limit the base current from the GPIO, you can use a resistor. 
+For example, if the GPIO outputs 3.3V and you want about 5mA of base current:
+
+> $Rb = {Vgpio - Vbe \over Ib} ≈ {3.3V - 0.7V \over 5mA} = 520Ω$ 
+
+A standard resistor value of 470Ω or 1kΩ would work well.
+ 
+#### Conclusion
+Using 2N2222 as contactors the GPIO will act as the caps since 
+* the current of the 2N2222 is compatible with the output characteristics of a Raspberry Pi GPIO pin.
+* the voltage of the 2N2222 is compatible with the output characteristics of a Raspberry Pi GPIO pin.
+* the gain of the 2N2222 is compatible with the output characteristics of a Raspberry Pi GPIO pin.
+
+It can effectively amplify the small current from the GPIO to control the caps,
+provided that the GPIO pin is protected with a resistor.
+
+## Controlling the RCU 
 * For a given plug: 2 contactors will be required
   * one between A/B/C/D and COMMON
   * one on 1/2/3/4 either on the ON or the OFF side
