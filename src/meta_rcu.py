@@ -43,8 +43,8 @@ rcu_TAA02A_assignments = [
     {"channel": "D_CHANNEL", "plug_on": "PLUG_3_ON", "plug_off": "PLUG_3_OFF", "location": "???", "status": False},
     {"channel": "D_CHANNEL", "plug_on": "PLUG_4_ON", "plug_off": "PLUG_4_OFF", "location": "???", "status": False},
 
-    {"channel": "ALL_ON", "plug_on": "ALL_ON", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
-    {"channel": "ALL_OFF", "plug_on": "ALL_ON", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
+    {"channel": "ALL_ON", "plug_on": "ALL_ON", "plug_off": "n/a", "location": "TOUT", "status": False},
+    {"channel": "ALL_OFF", "plug_on": "n/a", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
 ]
 
 # Configuration du pin GPIO

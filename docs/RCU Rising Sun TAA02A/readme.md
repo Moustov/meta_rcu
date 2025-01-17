@@ -179,6 +179,16 @@ To run the web server, say the code is under the file `RCU.py`
 $ sudo python RCU.py
 ```
 
+# Testing
+## 17/01/2025
+* Hardware: ![1st prototype](1st%20prototype.png)
+* Software: [meta_rcu.py](/src/meta_rcu.py)
+I opened the URL of the Raspberry under a browser on my mobile
+* the many plug locations configured in the python file were displayed
+* I tapped on the configured GPIO port (#14 in the test)
+
+> The plug switched turned on
+
 
 
 
