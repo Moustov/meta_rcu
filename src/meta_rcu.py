@@ -82,6 +82,7 @@ def index():
 DELAY_BETWEEN_CHANNEL_AND_PLUG = 0.02 #  (in sec)
 DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
 
+
 @app.route('/activate/<int:ID>')
 def activate(ID:int):
     print(f'ID: {ID}')
@@ -119,6 +120,7 @@ def activate(ID:int):
             return index()
     else:
         return "Pin not configured - go back", 404
+
 
 @app.route('/deactivate/<int:ID>')
 def deactivate(ID:int):
