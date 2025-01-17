@@ -10,12 +10,16 @@ gpio_assignments = {
     "B_CHANNEL": {"gpio": 2, "GPIO_IO": "OUT"},
     "C_CHANNEL": {"gpio": 3, "GPIO_IO": "OUT"},
     "D_CHANNEL": {"gpio": 4, "GPIO_IO": "OUT"},
-    "PLUG_1": {"gpio": 5, "GPIO_IO": "OUT"},
-    "PLUG_2": {"gpio": 6, "GPIO_IO": "OUT"},
-    "PLUG_3": {"gpio": 7, "GPIO_IO": "OUT"},
-    "PLUG_4": {"gpio": 8, "GPIO_IO": "OUT"},
-    "ALL_ON": {"gpio": 9, "GPIO_IO": "OUT"},
-    "ALL_OFF":{"gpio": 10, "GPIO_IO": "OUT"},
+    "PLUG_1_ON": {"gpio": 5, "GPIO_IO": "OUT"},
+    "PLUG_2_ON": {"gpio": 6, "GPIO_IO": "OUT"},
+    "PLUG_3_ON": {"gpio": 7, "GPIO_IO": "OUT"},
+    "PLUG_4_ON": {"gpio": 8, "GPIO_IO": "OUT"},
+    "PLUG_1_OFF": {"gpio": 9, "GPIO_IO": "OUT"},
+    "PLUG_2_OFF": {"gpio": 10, "GPIO_IO": "OUT"},
+    "PLUG_3_OFF": {"gpio": 11, "GPIO_IO": "OUT"},
+    "PLUG_4_OFF": {"gpio": 12, "GPIO_IO": "OUT"},
+    "ALL_ON": {"gpio": 13, "GPIO_IO": "OUT"},
+    "ALL_OFF":{"gpio": 14, "GPIO_IO": "OUT"},
 }
 
 rcu_TAA02A_assignments = [
