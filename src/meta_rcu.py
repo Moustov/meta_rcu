@@ -65,7 +65,12 @@ def index():
         plug_off = plug["plug_off"]
         location = plug["location"]
         on_off = plug["status"]
-        links += f'{on_off} <a href="/activate/{ID}">Allumer {location}</a> - <a href="/deactivate/{ID}">Eteindre {location}</a><br>'
+        if plug["channel"] == "ALL_ON":
+            links += f'{on_off} <a href="/activate/{ID}">Allumer {location}</a><br>'
+        elif plug["channel"] == "ALL_OFF":
+            links += f'{on_off} <a href="/deactivate/{ID}">Eteindre {location}</a><br>'
+        else:
+            links += f'{on_off} <a href="/activate/{ID}">Allumer {location}</a> - <a href="/deactivate/{ID}">Eteindre {location}</a><br>'
         ID += 1
 
     return render_template_string(f'''
