@@ -82,9 +82,12 @@ DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
 
 @app.route('/activate/<int:ID>')
 def activate(ID:int):
+    print(f'ID: {ID}')
     if ID in range(0, len(rcu_TAA02A_assignments)):
         gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]
+        print(f'gpio_channel: {gpio_channel}')
         gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_on"]]
+        print(f'gpio_plug: {gpio_plug}')
 
         GPIO.output(gpio_channel, GPIO.HIGH)
         time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
