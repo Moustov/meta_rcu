@@ -117,9 +117,9 @@ def activate(ID:int):
             GPIO.output(gpio_plug, GPIO.LOW)
             time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
             GPIO.output(gpio_channel, GPIO.LOW)
-            return index()
     else:
         return "Pin not configured - go back", 404
+    return index()
 
 
 @app.route('/deactivate/<int:ID>')
