@@ -43,7 +43,8 @@ rcu_TAA02A_assignments = [
     {"channel": "D_CHANNEL", "plug_on": "PLUG_3_ON", "plug_off": "PLUG_3_OFF", "location": "???", "status": False},
     {"channel": "D_CHANNEL", "plug_on": "PLUG_4_ON", "plug_off": "PLUG_4_OFF", "location": "???", "status": False},
 
-    {"channel": "ALL", "plug_on": "ALL_ON", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
+    {"channel": "ALL_ON", "plug_on": "ALL_ON", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
+    {"channel": "ALL_OFF", "plug_on": "ALL_ON", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
 ]
 
 # Configuration du pin GPIO
@@ -87,14 +88,17 @@ DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
 def activate(ID:int):
     print(f'ID: {ID}')
     if ID in range(0, len(rcu_TAA02A_assignments)):
-        if rcu_TAA02A_assignments[ID]["channel"] == "ALL":
+        if "ALL" in rcu_TAA02A_assignments[ID]["channel"]:
             gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_off"]]["gpio"]
             print(f'gpio_plug: {gpio_plug}')
 
             GPIO.output(gpio_plug, GPIO.HIGH)
             ID_ = 0
             for plug in rcu_TAA02A_assignments:
-                rcu_TAA02A_assignments[ID_]["status"] = True
+                if rcu_TAA02A_assignments[ID]["channel"] == "ALL_ON":
+                    rcu_TAA02A_assignments[ID_]["status"] = True
+                else:
+                    rcu_TAA02A_assignments[ID_]["status"] = False
                 ID_ += 1
 
             time.sleep(DELAY_PRESS)
@@ -125,14 +129,17 @@ def activate(ID:int):
 @app.route('/deactivate/<int:ID>')
 def deactivate(ID:int):
     if ID in range(0, len(rcu_TAA02A_assignments)):
-        if rcu_TAA02A_assignments[ID]["channel"] == "ALL":
+        if "ALL" in rcu_TAA02A_assignments[ID]["channel"]:
             gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_off"]]["gpio"]
             print(f'gpio_plug: {gpio_plug}')
 
             GPIO.output(gpio_plug, GPIO.HIGH)
             ID_ = 0
             for plug in rcu_TAA02A_assignments:
-                rcu_TAA02A_assignments[ID_]["status"] = False
+                if rcu_TAA02A_assignments[ID]["channel"] == "ALL_ON":
+                    rcu_TAA02A_assignments[ID_]["status"] = True
+                else:
+                    rcu_TAA02A_assignments[ID_]["status"] = False
                 ID_ += 1
 
             time.sleep(DELAY_PRESS)
