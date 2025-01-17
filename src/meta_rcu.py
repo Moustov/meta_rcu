@@ -84,9 +84,9 @@ DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
 def activate(ID:int):
     print(f'ID: {ID}')
     if ID in range(0, len(rcu_TAA02A_assignments)):
-        gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]
+        gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]["gpio"]
         print(f'gpio_channel: {gpio_channel}')
-        gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_on"]]
+        gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_on"]]["gpio"]
         print(f'gpio_plug: {gpio_plug}')
 
         GPIO.output(gpio_channel, GPIO.HIGH)
@@ -107,8 +107,10 @@ def activate(ID:int):
 @app.route('/deactivate/<int:ID>')
 def deactivate(ID:int):
     if ID in range(0, len(rcu_TAA02A_assignments)):
-        gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]
-        gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_off"]]
+        gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]["gpio"]
+        print(f'gpio_channel: {gpio_channel}')
+        gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_off"]]["gpio"]
+        print(f'gpio_plug: {gpio_plug}')
 
         GPIO.output(gpio_channel, GPIO.HIGH)
         time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
