@@ -5,10 +5,11 @@ import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 
+# /!\ GPIO 2 (SDA) and GPIO 3 (SCL) are "reserved" for I2C applications
 gpio_assignments = {
     "A_CHANNEL": {"gpio": 1, "GPIO_IO": "OUT"},
-    "B_CHANNEL": {"gpio": 2, "GPIO_IO": "OUT"},
-    "C_CHANNEL": {"gpio": 3, "GPIO_IO": "OUT"},
+    "B_CHANNEL": {"gpio": 21, "GPIO_IO": "OUT"},
+    "C_CHANNEL": {"gpio": 20, "GPIO_IO": "OUT"},
     "D_CHANNEL": {"gpio": 4, "GPIO_IO": "OUT"},
     "PLUG_1_ON": {"gpio": 5, "GPIO_IO": "OUT"},
     "PLUG_2_ON": {"gpio": 6, "GPIO_IO": "OUT"},

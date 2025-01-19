@@ -3,7 +3,9 @@ Interfacing the TAA020A RCU from Rising Sun
 
 # Hardware
 Such remote is available on Amazon.fr:
-* 4x4 channels: https://www.amazon.fr/Gmornxen-Télécommande-Fonctionnement-Télécommandée-Programmable/dp/B0BY2JCWH6/
+* 4x4 channels: 
+  * https://www.otio.com/produit/telecommande-16-canaux (the ones I use to control these [plugs](https://www.otio.com/produit/prise-connectee-pilotable-distance-ou-telecommandee))
+  * https://www.amazon.fr/Gmornxen-Télécommande-Fonctionnement-Télécommandée-Programmable/dp/B0BY2JCWH6/
 * 4 channels: https://www.amazon.fr/Nouveau-conecto®-Prises-Radio-commandées-Radio-commandée/dp/B08YZ2CTLD/
 
 If a 4x4 channel remote control is open, the PCB should look like this : 
@@ -179,7 +181,7 @@ To run the web server, say the code is under the file `RCU.py`
 $ sudo python RCU.py
 ```
 
-# Testing
+# Prototypes
 ## 17/01/2025
 * Hardware: ![1st prototype](1st%20prototype.png)
 * Software: [meta_rcu.py](/src/meta_rcu.py)
@@ -189,6 +191,12 @@ I opened the URL of the Raspberry under a browser on my mobile
 
 > The plug switched turned on
 
+## 19/01/2025
+* Schematics: 
+  * ![RCU](schematic/TAA02A%20RCU.png)
+  * * ![full prototype](schematic/meta%20RCU.png)
+
+  
 
 
 
