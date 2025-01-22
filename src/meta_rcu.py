@@ -107,7 +107,7 @@ def activate(ID:int):
     if ID in range(0, len(rcu_TAA02A_assignments)):
         print(rcu_TAA02A_assignments[ID])
         if "ALL" in rcu_TAA02A_assignments[ID]["channel"]:
-            gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_off"]]["gpio"]
+            gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_on"]]["gpio"]
             print(f'gpio_plug: {gpio_plug}')
 
             GPIO.output(gpio_plug, GPIO.HIGH)
