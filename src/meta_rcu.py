@@ -18,14 +18,14 @@ gpio_assignments = {
     "PLUG_1_OFF": {"gpio": 9, "GPIO_IO": "OUT"},
     "PLUG_2_OFF": {"gpio": 10, "GPIO_IO": "OUT"},
     "PLUG_3_OFF": {"gpio": 11, "GPIO_IO": "OUT"},
-    "PLUG_4_OFF": {"gpio": 12, "GPIO_IO": "OUT"},
+    "PLUG_4_OFF": {"gpio": 14, "GPIO_IO": "OUT"},
     "ALL_ON": {"gpio": 13, "GPIO_IO": "OUT"},
-    "ALL_OFF":{"gpio": 14, "GPIO_IO": "OUT"},
+    "ALL_OFF":{"gpio": 12, "GPIO_IO": "OUT"},
 }
 
 rcu_TAA02A_assignments = [
     {"channel": "A_CHANNEL", "plug_on":"PLUG_1_ON", "plug_off":"PLUG_1_OFF", "location": "banque cuisine", "status": False},
-    {"channel": "A_CHANNEL", "plug_on": "PLUG_2_ON", "plug_off": "PLUG_2_OFF", "location": "???", "status": False},
+    {"channel": "A_CHANNEL", "plug_on": "PLUG_2_ON", "plug_off": "PLUG_2_OFF", "location": "salle a manger", "status": False},
     {"channel": "A_CHANNEL", "plug_on": "PLUG_3_ON", "plug_off": "PLUG_3_OFF", "location": "bibliotheque (livres)", "status": False},
     {"channel": "A_CHANNEL", "plug_on": "PLUG_4_ON", "plug_off": "PLUG_4_OFF", "location": "piano", "status": False},
 
@@ -46,6 +46,9 @@ rcu_TAA02A_assignments = [
 
     {"channel": "ALL_ON", "plug_on": "ALL_ON", "plug_off": "n/a", "location": "TOUT", "status": False},
     {"channel": "ALL_OFF", "plug_on": "n/a", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
+
+    {"channel": "script1", "plug_on": "script1", "plug_off": "n/a", "location": "salon + bureau", "status": False},
+    {"channel": "script2", "plug_on": "script2", "plug_off": "n/a", "location": "go to sleep", "status": False},
 ]
 
 # Configuration du pin GPIO
@@ -66,10 +69,12 @@ def index():
         plug_off = plug["plug_off"]
         location = plug["location"]
         on_off = plug["status"]
-        if plug["channel"] == "ALL_ON":
+        if channel == "ALL_ON":
             links += f'{on_off} <a href="/activate/{ID}">Allumer {location}</a><br>'
-        elif plug["channel"] == "ALL_OFF":
+        elif channel == "ALL_OFF":
             links += f'{on_off} <a href="/deactivate/{ID}">Eteindre {location}</a><br>'
+        elif "script" in channel:
+            links += f'{on_off} <a href="/script/{plug_on}">Script "{location}"</a><br>'
         else:
             links += f'{on_off} <a href="/activate/{ID}">Allumer {location}</a> - <a href="/deactivate/{ID}">Eteindre {location}</a><br>'
         ID += 1
@@ -88,6 +93,12 @@ def index():
 
 DELAY_BETWEEN_CHANNEL_AND_PLUG = 0.02 #  (in sec)
 DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
+
+
+@app.route('/script/<int:ID>')
+def script(ID:int):
+    print(f'script ID: {ID}')
+    return index()
 
 
 @app.route('/activate/<int:ID>')
