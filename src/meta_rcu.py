@@ -59,6 +59,55 @@ for config in gpio_assignments.keys():
         GPIO.setup(gpio_assignments[config]["gpio"], GPIO.OUT)
 
 
+def id_from_channel_plug(channel: str, plug_id: int) -> int:
+    ID = 0
+    for route in rcu_TAA02A_assignments:
+        if channel in route["channel"] and f'{plug_id}' in route["plug_on"]:
+            return ID
+        ID += 1
+    return -1
+
+
+def switch_plug_off(channel: str, plug_id: int):
+    ID = id_from_channel_plug(channel, plug_id)
+    gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]["gpio"]
+    print(f'gpio_channel: {gpio_channel}')
+    gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_off"]]["gpio"]
+    print(f'gpio_plug: {gpio_plug}')
+
+    GPIO.output(gpio_channel, GPIO.HIGH)
+    time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
+    GPIO.output(gpio_plug, GPIO.HIGH)
+
+    rcu_TAA02A_assignments[ID]["status"] = True
+
+    time.sleep(DELAY_PRESS)
+
+    GPIO.output(gpio_plug, GPIO.LOW)
+    time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
+    GPIO.output(gpio_channel, GPIO.LOW)
+
+
+def switch_plug_on(channel: str, plug_id: int):
+    ID = id_from_channel_plug(channel, plug_id)
+    gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]["gpio"]
+    print(f'gpio_channel: {gpio_channel}')
+    gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_on"]]["gpio"]
+    print(f'gpio_plug: {gpio_plug}')
+
+    GPIO.output(gpio_channel, GPIO.HIGH)
+    time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
+    GPIO.output(gpio_plug, GPIO.HIGH)
+
+    rcu_TAA02A_assignments[ID]["status"] = True
+
+    time.sleep(DELAY_PRESS)
+
+    GPIO.output(gpio_plug, GPIO.LOW)
+    time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
+    GPIO.output(gpio_channel, GPIO.LOW)
+
+
 @app.route('/')
 def index():
     # Generate links for each GPIO pin
@@ -99,6 +148,12 @@ DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
 @app.route('/script/<int:ID>')
 def script(ID:int):
     print(f'script ID: {ID}')
+    if ID == 1:
+        pass
+    elif  ID == 2:
+        pass
+    else:
+        pass
     return index()
 
 
@@ -124,22 +179,7 @@ def activate(ID:int):
 
             GPIO.output(gpio_plug, GPIO.LOW)
         else:
-            gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]["gpio"]
-            print(f'gpio_channel: {gpio_channel}')
-            gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_on"]]["gpio"]
-            print(f'gpio_plug: {gpio_plug}')
-
-            GPIO.output(gpio_channel, GPIO.HIGH)
-            time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
-            GPIO.output(gpio_plug, GPIO.HIGH)
-
-            rcu_TAA02A_assignments[ID]["status"] = True
-
-            time.sleep(DELAY_PRESS)
-
-            GPIO.output(gpio_plug, GPIO.LOW)
-            time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
-            GPIO.output(gpio_channel, GPIO.LOW)
+            switch_plug_on(rcu_TAA02A_assignments[ID]["channel"], rcu_TAA02A_assignments[ID]["plug_on"])
     else:
         return "Pin not configured - go back", 404
     return index()
@@ -166,21 +206,7 @@ def deactivate(ID:int):
 
             GPIO.output(gpio_plug, GPIO.LOW)
         else:
-            gpio_channel = gpio_assignments[rcu_TAA02A_assignments[ID]["channel"]]["gpio"]
-            print(f'gpio_channel: {gpio_channel}')
-            gpio_plug = gpio_assignments[rcu_TAA02A_assignments[ID]["plug_off"]]["gpio"]
-            print(f'gpio_plug: {gpio_plug}')
-
-            GPIO.output(gpio_channel, GPIO.HIGH)
-            time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
-            GPIO.output(gpio_plug, GPIO.HIGH)
-            rcu_TAA02A_assignments[ID]["status"] = False
-
-            time.sleep(DELAY_PRESS)
-
-            GPIO.output(gpio_plug, GPIO.LOW)
-            time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
-            GPIO.output(gpio_channel, GPIO.LOW)
+            switch_plug_off(rcu_TAA02A_assignments[ID]["channel"], rcu_TAA02A_assignments[ID]["plug_off"])
     else:
         return "Pin not configured - go back", 404
     return index()
