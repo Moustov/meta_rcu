@@ -47,6 +47,7 @@ rcu_TAA02A_assignments = [
     {"channel": "ALL_ON", "plug_on": "ALL_ON", "plug_off": "n/a", "location": "TOUT", "status": False},
     {"channel": "ALL_OFF", "plug_on": "n/a", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
 
+    {"channel": "script0", "plug_on": "script0", "plug_off": "n/a", "location": "déclarer télécommande", "status": False},
     {"channel": "script1", "plug_on": "script1", "plug_off": "n/a", "location": "salon + bureau", "status": False},
     {"channel": "script2", "plug_on": "script2", "plug_off": "n/a", "location": "go to sleep", "status": False},
 ]
