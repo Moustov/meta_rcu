@@ -6,22 +6,21 @@ import RPi.GPIO as GPIO
 app = Flask(__name__)
 
 # /!\ GPIO 2 (SDA) and GPIO 3 (SCL) are "reserved" for I2C applications
-# todo : refactor gpio pins to ease routing
 gpio_assignments = {
-    "A_CHANNEL": {"gpio": 1, "GPIO_IO": "OUT"},
-    "B_CHANNEL": {"gpio": 21, "GPIO_IO": "OUT"},
-    "C_CHANNEL": {"gpio": 20, "GPIO_IO": "OUT"},
-    "D_CHANNEL": {"gpio": 4, "GPIO_IO": "OUT"},
-    "PLUG_1_ON": {"gpio": 5, "GPIO_IO": "OUT"},
-    "PLUG_2_ON": {"gpio": 6, "GPIO_IO": "OUT"},
-    "PLUG_3_ON": {"gpio": 7, "GPIO_IO": "OUT"},
-    "PLUG_4_ON": {"gpio": 8, "GPIO_IO": "OUT"},
-    "PLUG_1_OFF": {"gpio": 9, "GPIO_IO": "OUT"},
-    "PLUG_2_OFF": {"gpio": 10, "GPIO_IO": "OUT"},
-    "PLUG_3_OFF": {"gpio": 11, "GPIO_IO": "OUT"},
-    "PLUG_4_OFF": {"gpio": 14, "GPIO_IO": "OUT"},
-    "ALL_ON": {"gpio": 13, "GPIO_IO": "OUT"},
-    "ALL_OFF":{"gpio": 12, "GPIO_IO": "OUT"},
+    "A_CHANNEL": {"gpio": 21, "GPIO_IO": "OUT"},
+    "B_CHANNEL": {"gpio": 20, "GPIO_IO": "OUT"},
+    "C_CHANNEL": {"gpio": 16, "GPIO_IO": "OUT"},
+    "D_CHANNEL": {"gpio": 12, "GPIO_IO": "OUT"},
+    "PLUG_1_ON": {"gpio": 17, "GPIO_IO": "OUT"},
+    "PLUG_1_OFF": {"gpio": 4, "GPIO_IO": "OUT"},
+    "PLUG_2_ON": {"gpio": 23, "GPIO_IO": "OUT"},
+    "PLUG_2_OFF": {"gpio": 24, "GPIO_IO": "OUT"},
+    "PLUG_3_ON": {"gpio": 25, "GPIO_IO": "OUT"},
+    "PLUG_3_OFF": {"gpio": 8, "GPIO_IO": "OUT"},
+    "PLUG_4_ON": {"gpio": 7, "GPIO_IO": "OUT"},
+    "PLUG_4_OFF": {"gpio": 1, "GPIO_IO": "OUT"},
+    "ALL_ON": {"gpio": 22, "GPIO_IO": "OUT"},
+    "ALL_OFF":{"gpio": 27, "GPIO_IO": "OUT"},
 }
 
 rcu_TAA02A_assignments = [
