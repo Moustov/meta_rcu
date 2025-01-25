@@ -3,6 +3,12 @@ import time
 from flask import Flask, render_template_string
 import RPi.GPIO as GPIO
 
+
+DELAY_BETWEEN_CHANNEL_AND_PLUG = 0.02 #  (in sec)
+DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
+DELAY_PRESS_ORIG = DELAY_PRESS
+
+
 app = Flask(__name__)
 
 # /!\ GPIO 2 (SDA) and GPIO 3 (SCL) are "reserved" for I2C applications
@@ -48,7 +54,7 @@ rcu_TAA02A_assignments = [
     {"channel": "ALL_OFF", "plug_on": "n/a", "plug_off": "ALL_OFF", "location": "TOUT", "status": False},
 
     {"channel": "script0", "plug_on": "script0", "plug_off": "n/a", "location": "déclarer télécommande", "status": False},
-    {"channel": "script1", "plug_on": "script1", "plug_off": "n/a", "location": "salon + bureau", "status": False},
+    {"channel": "script1", "plug_on": "script1", "plug_off": "n/a", "location": "salon + bureau (arrivée)", "status": False},
     {"channel": "script2", "plug_on": "script2", "plug_off": "n/a", "location": "go to sleep", "status": False},
 ]
 
@@ -141,17 +147,37 @@ def index():
         </html>
     ''')
 
-DELAY_BETWEEN_CHANNEL_AND_PLUG = 0.02 #  (in sec)
-DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
-
 
 @app.route('/script/<int:ID>')
 def script(ID:int):
     print(f'script ID: {ID}')
-    if ID == 1:
-        pass
-    elif  ID == 2:
-        pass
+    if ID == 0: # plug programming
+        if DELAY_PRESS_ORIG == DELAY_PRESS:
+            DELAY_PRESS = 10
+        else:
+            DELAY_PRESS_ORIG = DELAY_PRESS
+    elif ID == 1:   # arrival
+        switch_plug_on("A", "1")
+        switch_plug_on("A", "3")
+        switch_plug_on("B", "2")
+        switch_plug_on("B", "4")
+    elif  ID == 2:  # go to bed
+        switch_plug_off("A", "1")
+        switch_plug_off("A", "2")
+        switch_plug_off("A", "3")
+        switch_plug_off("A", "4")
+        switch_plug_off("B", "1")
+        switch_plug_on("B", "2")
+        switch_plug_off("B", "3")
+        switch_plug_off("B", "4")
+        switch_plug_off("C", "1")
+        switch_plug_on("C", "2")
+        switch_plug_off("C", "3")
+        switch_plug_off("C", "3")
+        switch_plug_off("D", "1")
+        switch_plug_off("D", "2")
+        switch_plug_off("D", "3")
+        switch_plug_off("D", "4")
     else:
         pass
     return index()
@@ -212,4 +238,7 @@ def deactivate(ID:int):
     return index()
 
 if __name__ == '__main__':
+    DELAY_BETWEEN_CHANNEL_AND_PLUG = 0.02  # (in sec)
+    DELAY_PRESS = 0.3  # how long the button is pressed (in sec)
+    DELAY_PRESS_ORIG = DELAY_PRESS
     app.run(host='0.0.0.0', port=80)
