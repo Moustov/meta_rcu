@@ -65,8 +65,10 @@ class TAA02A_RCU:
         # "déclarer combinaison": ["ALL_ON"],
         "allumer salon+bureau (arrivée)": [Action("A_CHANNEL", "PLUG_1_ON"), Action("A_CHANNEL", "PLUG_3_ON")],
         "go to sleep": [Action("B_CHANNEL", "PLUG_4_ON"), Action("C_CHANNEL", "PLUG_2_ON"),
-                        Action("A_CHANNEL", "PLUG_1_OFF"), Action("A_CHANNEL", "PLUG_2_OFF"), Action("A_CHANNEL", "PLUG_3_OFF"), ("A_CHANNEL", "PLUG_4_OFF"),
-                        Action("B_CHANNEL", "PLUG_1_OFF"), Action("B_CHANNEL", "PLUG_2_OFF"), Action("B_CHANNEL", "PLUG_3_OFF"),
+                        Action("A_CHANNEL", "PLUG_1_OFF"), Action("A_CHANNEL", "PLUG_2_OFF"),
+                        Action("A_CHANNEL", "PLUG_3_OFF"), Action("A_CHANNEL", "PLUG_4_OFF"),
+                        Action("B_CHANNEL", "PLUG_1_OFF"), Action("B_CHANNEL", "PLUG_2_OFF"),
+                        Action("B_CHANNEL", "PLUG_3_OFF"),
                         Action("C_CHANNEL", "PLUG_2_ON")]
     }
 
