@@ -42,7 +42,7 @@ class TAA02A_RCU:
         "allumer salle a manger": [Action("A_CHANNEL", "PLUG_2_ON")],
         "éteindre salle a manger": [Action("A_CHANNEL", "PLUG_2_OFF")],
         "allumer bibliotheque (livres)": [Action("A_CHANNEL", "PLUG_3_ON")],
-        "éteindre paibibliotheque (livres)no": [Action("A_CHANNEL", "PLUG_3_OFF")],
+        "éteindre bibliotheque (livres)": [Action("A_CHANNEL", "PLUG_3_OFF")],
         "allumer piano": [Action("A_CHANNEL", "PLUG_4_ON")],
         "éteindre paino": [Action("A_CHANNEL", "PLUG_4_OFF")],
 
