@@ -58,8 +58,16 @@ rcu_TAA02A_assignments = [
     {"channel": "script2", "plug_on": "script2", "plug_off": "n/a", "location": "go to sleep", "status": False},
 ]
 
+
 # Configuration du pin GPIO
 GPIO.setmode(GPIO.BCM)
+gpio_pins = range(2, 28)  # Par exemple, GPIO 2 à 27
+
+# Configurer chaque GPIO en sortie et les éteindre
+for pin in gpio_pins:
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, GPIO.LOW)
+
 for config in gpio_assignments.keys():
     if gpio_assignments[config]["GPIO_IO"] == "OUT":
         GPIO.setup(gpio_assignments[config]["gpio"], GPIO.OUT)
