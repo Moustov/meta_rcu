@@ -123,7 +123,7 @@ class TAA02A_RCU:
         ''')
 
     @staticmethod
-    def script(scenario: str):
+    def script(scenario: str) -> str:
         for action in TAA02A_RCU.scenarii[scenario]:
             TAA02A_RCU.press_RCU_item(action)
         return index()
@@ -131,13 +131,13 @@ class TAA02A_RCU:
 
 
 @app.route('/')
-def index():
-    TAA02A_RCU.index()
+def index() -> str:
+    return TAA02A_RCU.index()
 
 
-@app.route('/script/<str:scenario>')
-def script(scenario:str):
-    TAA02A_RCU.script(scenario)
+@app.route('/script/<scenario>')
+def script(scenario:str) -> str:
+    return TAA02A_RCU.script(scenario)
 
 
 if __name__ == '__main__':
