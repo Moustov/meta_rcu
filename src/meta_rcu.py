@@ -3,6 +3,7 @@ import time
 from flask import Flask, render_template_string
 import RPi.GPIO as GPIO
 
+app = Flask(__name__)
 
 DELAY_BETWEEN_CHANNEL_AND_PLUG = 0.02 #  (in sec)
 DELAY_PRESS = 0.3   # how long the button is pressed (in sec)
@@ -140,7 +141,6 @@ def script(scenario:str):
 
 
 if __name__ == '__main__':
-    app = Flask(__name__)
     DELAY_BETWEEN_CHANNEL_AND_PLUG = 0.02  # (in sec)
     DELAY_PRESS = 0.3  # how long the button is pressed (in sec)
     DELAY_PRESS_ORIG = DELAY_PRESS
