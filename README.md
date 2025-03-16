@@ -78,3 +78,50 @@ Verify that the service is running correctly.
 $ sudo systemctl status meta_rcu.service
 ```
 
+## Afficher les Logs d'un Service avec journalctl
+
+```bash   
+sudo journalctl -u meta_rcu.service
+```
+
+
+Voir les Logs en Temps Réel :
+Si tu souhaites suivre les logs en temps réel, tu peux ajouter l'option -f :
+bash
+
+```bash   
+sudo journalctl -u meta_rcu.service -f
+```
+
+Limiter par Date ou par Nombre de Lignes :
+Tu peux également filtrer les logs par date ou par nombre de lignes. Par exemple, pour voir les 100 dernières lignes :
+bash
+
+```bash   
+sudo journalctl -u meta_rcu.service -n 100
+```
+
+Pour voir les logs d'une journée spécifique, tu peux utiliser :
+bash
+
+```bash   
+    sudo journalctl -u meta_rcu.service --since "YYYY-MM-DD" --until "YYYY-MM-DD"
+```
+
+Autres Options Utiles
+
+    Afficher Tous les Logs :
+    Pour voir tous les logs, sans filtrer par service :
+    bash
+
+```bash   
+sudo journalctl
+```
+
+Filtrer par Priorité :
+Tu peux filtrer les logs par niveau de priorité (par exemple, err, warning, info, etc.) :
+bash
+
+```bash   
+sudo journalctl -p err
+```
