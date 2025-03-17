@@ -177,7 +177,7 @@ $ sudo apt install python3-flake
 ```
 To install journal lib
 ```bash
-sudo apt install python3-systemd-python
+sudo apt install python3-systemd
 ```
 
 To run the web server, say the code is under the file `meta_rcu.py`

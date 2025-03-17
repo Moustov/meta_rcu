@@ -96,6 +96,13 @@ class TAA02A_RCU:
                 GPIO.setup(TAA02A_RCU.gpio_assignments[config]["gpio"], GPIO.OUT)
 
     @staticmethod
+    def rcu_assignment_from_gpio(gpio: str) -> str:
+        for a in TAA02A_RCU.gpio_assignments.keys():
+            if TAA02A_RCU.gpio_assignments[a]["gpio"] == gpio:
+                return a
+        return "???"
+
+    @staticmethod
     def press_RCU_item(action: Action):
         log_message(f'press: {action}')
         try:
@@ -104,17 +111,17 @@ class TAA02A_RCU:
             if action.channel:
                 gpio_channel = TAA02A_RCU.gpio_assignments[action.channel]["gpio"]
                 GPIO.output(gpio_channel, GPIO.HIGH)
-                log_message(f'  channel: {gpio_channel} - GPIO.HIGH')
+                log_message(f'  channel: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_channel)} - GPIO.HIGH')
                 time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
             GPIO.output(gpio_button, GPIO.HIGH)
-            log_message(f'  button: {gpio_button} - GPIO.HIGH')
+            log_message(f'  button: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_button)} - GPIO.HIGH')
             time.sleep(DELAY_PRESS)
             if action.channel:
                 GPIO.output(gpio_channel, GPIO.LOW)
-                log_message(f'  channel: {gpio_channel} - GPIO.LOW')
+                log_message(f'  channel: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_channel)} - GPIO.LOW')
                 time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
             GPIO.output(gpio_button, GPIO.LOW)
-            log_message(f'  button: {gpio_button} - GPIO.LOW')
+            log_message(f'  button: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_button)} - GPIO.LOW')
         except Exception as e:
             log_message(str(e), journal.PRIORITY_ERR)
 
