@@ -116,12 +116,12 @@ class TAA02A_RCU:
             GPIO.output(gpio_button, GPIO.HIGH)
             log_message(f'  button: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_button)} - GPIO.HIGH')
             time.sleep(DELAY_PRESS)
+            GPIO.output(gpio_button, GPIO.LOW)
+            log_message(f'  button: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_button)} - GPIO.LOW')
             if action.channel:
                 GPIO.output(gpio_channel, GPIO.LOW)
                 log_message(f'  channel: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_channel)} - GPIO.LOW')
                 time.sleep(DELAY_BETWEEN_CHANNEL_AND_PLUG)
-            GPIO.output(gpio_button, GPIO.LOW)
-            log_message(f'  button: {TAA02A_RCU.rcu_assignment_from_gpio(gpio_button)} - GPIO.LOW')
         except Exception as e:
             log_message(str(e), journal.PRIORITY_ERR)
 
