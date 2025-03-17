@@ -175,10 +175,14 @@ To install Flake:
 ```bash
 $ sudo apt install python3-flake
 ```
-
-To run the web server, say the code is under the file `RCU.py`
+To install journal lib
 ```bash
-$ sudo python RCU.py
+sudo apt install python3-systemd-python
+```
+
+To run the web server, say the code is under the file `meta_rcu.py`
+```bash
+$ sudo python meta_rcu.py
 ```
 
 # Prototypes
