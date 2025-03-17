@@ -76,8 +76,7 @@ class TAA02A_RCU:
                         Action("A_CHANNEL", "PLUG_1_OFF"), Action("A_CHANNEL", "PLUG_2_OFF"),
                         Action("A_CHANNEL", "PLUG_3_OFF"), Action("A_CHANNEL", "PLUG_4_OFF"),
                         Action("B_CHANNEL", "PLUG_1_OFF"), Action("B_CHANNEL", "PLUG_2_OFF"),
-                        Action("B_CHANNEL", "PLUG_3_OFF"),
-                        Action("C_CHANNEL", "PLUG_2_ON")]
+                        Action("B_CHANNEL", "PLUG_3_OFF")]
     }
 
     @staticmethod
