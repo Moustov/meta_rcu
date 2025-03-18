@@ -186,7 +186,7 @@ $ sudo python meta_rcu.py
 ```
 
 # Prototypes
-## 17/01/2025
+## 17/JAN/2025
 * Hardware: ![1st prototype](1st%20prototype.png)
 * Software: [meta_rcu.py](/src/meta_rcu.py)
 I opened the URL of the Raspberry under a browser on my mobile
@@ -195,10 +195,13 @@ I opened the URL of the Raspberry under a browser on my mobile
 
 > The plug switched turned on
 
-## 19/01/2025
+## 19/JAN/2025
 * Schematics: 
   * ![RCU](schematic/TAA02A%20RCU.png)
-  * * ![full prototype](schematic/meta%20RCU.png)
+  * ![full prototype](schematic/meta%20RCU.png)
+  * ![rpi4-pinout.jpg](rpi4-pinout.jpg)
+## 18/MAR/2025
+![proto MAR25](proto MAR25.png)
 
   
 
